@@ -1,0 +1,17 @@
+# LEfSe Command log (ver. 1.1.2)
+
+# Step 1. Format input file
+lefse_format_input.py [input].txt [input].in -c 1 -s 2 -u 3 -o 1000000
+# -c: class (main grouping variable)
+# -s: subclass (optional, omit for 2-group comparison)
+# -u: subject ID (optional, omit if not paired)
+
+# Step 2. Run LEfSe
+lefse_run.py [input].in [input].res
+# Perform LDA effect size analysis
+
+# Step 3. Plot LDA results
+lefse_plot_res.py [input].res [input].png --dpi 300
+
+# Step 4. Plot cladogram
+lefse_plot_cladogram.py [input].res [input].cladogram.png --format png --dpi 300

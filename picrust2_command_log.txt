@@ -1,0 +1,45 @@
+# PICRUSt2 command log
+# Executed within QIIME2 framework
+
+# Activate QIIME2 environment (version specified above)
+conda activate qiime2-2019.10
+
+# Run PICRUSt2 full pipeline
+qiime picrust2 full-pipeline \
+  --i-table table_cn.qza \
+  --i-seq rep-seqs.qza \
+  --output-dir q2-picrust2_output \
+  --p-threads 1 \
+  --p-hsp-method pic \
+  --p-max-nsti 2 \
+  --verbose
+
+# Summarize functional tables
+qiime feature-table summarize \
+  --i-table q2-picrust2_output/ec_metagenome.qza \
+  --o-visualization q2-picrust2_output/ec_metagenome.qzv
+
+qiime feature-table summarize \
+  --i-table q2-picrust2_output/ko_metagenome.qza \
+  --o-visualization q2-picrust2_output/ko_metagenome.qzv
+
+qiime feature-table summarize \
+  --i-table q2-picrust2_output/pathway_abundance.qza \
+  --o-visualization q2-picrust2_output/pathway_abundance.qzv
+
+# Export functional abundance tables
+qiime tools export \
+  --input-path q2-picrust2_output/ec_metagenome.qza \
+  --output-path ec_metagenome
+
+qiime tools export \
+  --input-path q2-picrust2_output/ko_metagenome.qza \
+  --output-path ko_metagenome
+
+qiime tools export \
+  --input-path q2-picrust2_output/pathway_abundance.qza \
+  --output-path pathway_abundance
+
+# Reference database
+# - SILVA 132 (99% sequence similarity)
+# - MetaCyc v24.5 pathway identifiers
