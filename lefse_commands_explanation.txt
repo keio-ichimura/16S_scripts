@@ -1,0 +1,16 @@
+# LEfSe Command Explanation
+
+## Step 1. Format input
+lefse_format_input.py collapse.frequency.table_lefse_donor.txt collapse.frequency.table_lefse_donor.in   -c 1 -s 2 -u 3 -o 1000000
+# -c : class (main grouping variable)
+# -s : subclass (optional, used if subgroups exist)
+# -u : subject ID (for paired design)
+# -o : normalization value
+
+## Step 2. Run LEfSe
+lefse_run.py collapse.frequency.table_lefse_donor.in collapse.frequency.table_lefse_donor.res
+# Performs LDA effect size analysis to identify features differing among groups
+
+## Step 3. Plot results
+lefse_plot_res.py collapse.frequency.table_lefse_donor.res collapse.frequency.table_lefse_donor.png --dpi 300
+lefse_plot_cladogram.py collapse.frequency.table_lefse_donor.res collapse.frequency.table_lefse_donor.cladogram.png --format png --dpi 300
